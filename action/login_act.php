@@ -5,13 +5,13 @@ include '../connection/connection.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM user WHERE username = '$username' and password = 'password'";
+$sql = "SELECT * FROM user WHERE username = '$username' and password = '$password'";
 
 $result = $conn->query($sql);
 
 if($result->num_rows > 0){
     echo "<script>Alert('Login Succes');</script>";
-    echo "<script>location.href = '../pages/dashboard_view.php';</script>";
+    echo "<script>location.href = '../pages/layout/layout.php';</script>";
 }else{
     session_start();
 

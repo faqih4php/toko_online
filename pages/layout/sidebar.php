@@ -60,11 +60,19 @@
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+                  <a class="sidebar-link" href="../pembayaran/index.php" aria-expanded="false">
                     <span>
                       <i class="ti ti-credit-card"></i>
                     </span>
                     <span class="hide-menu">Pembayaran</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="../" aria-expanded="false">
+                    <span>
+                      <i class="ti ti-credit-card"></i>
+                    </span>
+                    <span class="hide-menu">Transaksi</span>
                   </a>
                 </li>
                 <li class="nav-small-cap">
