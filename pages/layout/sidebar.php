@@ -64,7 +64,7 @@
                     <span>
                       <i class="ti ti-credit-card"></i>
                     </span>
-                    <span class="hide-menu">Pembayaran</span>
+                    <span class="hide-menu">Metode Pembayaran</span>
                   </a>
                 </li>
                 <li class="sidebar-item">

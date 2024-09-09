@@ -8,16 +8,17 @@
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $role = $_POST['role'];
     // query
-    $sql = "UPDATE user SET nama='$name', email='$email', username='$username', password='$password' where id=$id";
-    
+    $sql = "UPDATE user SET nama='$name', email='$email', username='$username', password='$password', role=$role where id=$id";
+    session_start();
     // jalankan query
     if($conn->query($sql) == true){
-        echo "<script>alert('Update Succes');</script>";
-        echo "<script>location.href = '../../pages/user/index.php';</script>";
+        $_SESSION['msg'] = 'Data Update Successfully';
+        header('Location:../../pages/user/index.php');
     }else {
-        echo "<script>alert('Update Failed');</script>";
-        echo "<script>location.href = '../../pages/user/edit_user.php';</script>";
+        $_SESSION['msg_err'] = 'Data Update Not Successfully';
+        header('Location:../../pages/user/edit_user.php');
     }
 
 

@@ -61,6 +61,7 @@
                                                 <th>Email</th>
                                                 <th>Username</th>
                                                 <th>Action</th>
+                                                <th>Role</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -74,6 +75,11 @@
                                                     <td><?= $data['nama'] ?></td>
                                                     <td><?= $data['email'] ?></td>
                                                     <td><?= $data['username'] ?></td>
+                                                    <?php if ($data['role'] == 1) {?>
+                                                            <td>Admin</td>
+                                                        <?php } else { ?>
+                                                            <td>User</td>
+                                                        <?php } ?>
                                                     <td>
                                                         <a href="edit_user.php?id=<?= $data['id'] ?>" class="btn btn-warning"><i class="ti ti-edit"></i></a>
                                                         <a href="../../action/user_action/delete_user_act.php?id=<?= $data['id'] ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data Ini?')"><i class="ti ti-trash"></i></a>

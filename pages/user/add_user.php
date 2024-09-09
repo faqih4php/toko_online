@@ -50,6 +50,14 @@
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
                                         <input type="password" class="form-control" id="exampleInputPassword1" name="password" >
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputtext1" class="form-label">Role</label>
+                                        <select class="form-select" aria-label="Default select example" name="role">
+                                            <option selected>Pilih Role Anda</option>
+                                            <option value="1">Admin</option>
+                                            <option value="1">User</option>
+                                        </select>
+                                    </div>
                                     <input type="submit" class="btn btn-success py-8 fs-4 mb-4 rounded-2" value="Simpan">
                                 </form>
                             </div>

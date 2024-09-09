@@ -16,7 +16,7 @@ if ($foto) {
     $new_file = 'produk_'.date('dmYHis').'.'.$type;
     $folder = 'C:\laragon\www\toko_online\assets\images\product';
 
-    move_uploaded_file($source, $folder. $new_file);
+    move_uploaded_file($source, $folder. $nama_file);
 }
 
 $sql = "INSERT INTO produk VALUES(null, '$kategori', '$nama', $harga, '$desk', '$foto', '$stok')";

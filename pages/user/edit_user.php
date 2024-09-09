@@ -52,6 +52,14 @@
                         <label for="exampleInputPassword1" class="form-label">Password</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                     </div>
+                    <div class="mb-4">
+                      <label for="exampleInputtext1" class="form-label">Role</label>
+                      <select name="role" id="" class="form-select">
+                        <option value="" selected>Pilih Role Anda</option>
+                        <option value="1" <?= $data['role'] == 1 ? 'selected' : '' ?>>Admin</option>
+                        <option value="2" <?= $data['role'] == 2 ? 'selected' : '' ?>>User</option>
+                      </select>
+                    </div>
                     <input type="submit" class="btn btn-success py-8 fs-4 mb-4 rounded-2" value="Simpan">
                 </form>
               </div>
