@@ -1,13 +1,13 @@
+<?php 
+    include '../../action/security_act.php';
+?>
 <!doctype html>
 <html lang="en">
-<?php  
-   include '../../action/security_act.php';
 
-?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modernize Free</title>
+    <title>Home</title>
     <link rel="shortcut icon" type="image/png" href="../../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="../../assets/css/styles.min.css" />
 </head>
@@ -28,20 +28,31 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <a href="index.php" class="btn btn-danger float-md-start">
-                                    <i class="ti ti-arrow-left"></i>
-                                </a>
-                                <h5 class="card-title d-flex justify-content-center">Add Pembayaran</h5>
-                                <form action="../../action/pembayaran_action/insert_pembayaran_act.php" method="post" class="mt-5">
-                                    <div class="mb-3">
-                                        <label for="exampleInputtext1" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="exampleInputtext1" aria-describedby="textHelp" name="nama"  >
-                                    </div>
-                                    <input type="submit" class="btn btn-success py-8 fs-4 mb-4 rounded-2" value="Simpan">
-                                </form>
-                            </div>
+                    <div class="card">
+                  <div class="card-body">
+                    <div class="row alig n-items-start">
+                      <div class="col-8">
+                        <h5 class="card-title mb-9 fw-semibold"> Pengeluaran Bulan Ini </h5>
+                        <h4 class="fw-semibold mb-3">Rp. 50.000</h4>
+                        <div class="d-flex align-items-center pb-1">
+                          <span
+                            class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-arrow-down-right text-danger"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="d-flex justify-content-end">
+                          <div
+                            class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-currency-dollar fs-6"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="earning"></div>
+                </div>
                         </div>
                     </div>
                 </div>

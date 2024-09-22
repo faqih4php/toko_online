@@ -2,7 +2,7 @@
 <html lang="en">
 
 <?php 
-session_start();
+  include '../action/security_auth.php';
 ?>
 
 <head>

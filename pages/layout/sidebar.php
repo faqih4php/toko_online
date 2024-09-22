@@ -14,6 +14,7 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
               <ul id="sidebarnav">
+                <?php if($_SESSION['role'] == 1) {?>
                 <li class="nav-small-cap">
                   <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                   <span class="hide-menu">Home</span>
@@ -67,26 +68,56 @@
                     <span class="hide-menu">Metode Pembayaran</span>
                   </a>
                 </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link" href="../" aria-expanded="false">
-                    <span>
-                      <i class="ti ti-credit-card"></i>
-                    </span>
-                    <span class="hide-menu">Transaksi</span>
-                  </a>
-                </li>
                 <li class="nav-small-cap">
                   <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                   <span class="hide-menu">TRANSAKSI</span>
                 </li>
                 <li class="sidebar-item">
-                  <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+                  <a class="sidebar-link" href="../transaksi/index.php" aria-expanded="false">
                     <span>
                       <i class="ti ti-history"></i>
                     </span>
                     <span class="hide-menu">Riwayat Transaksi</span>
                   </a>
                 </li>
+                <?php } else { ?>
+                  <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Home</span>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="../home/index.php" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-layout-dashboard"></i>
+                      </span>
+                      <span class="hide-menu">Dashboard</span>
+                    </a>
+                  </li>
+                  <li class="nav-small-cap">
+                      <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                      <span class="hide-menu">PRODUCT</span>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="../home/produk.php" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-shopping-cart"></i>
+                      </span>
+                      <span class="hide-menu">Product</span>
+                    </a>
+                  </li>
+                    <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">TRANSAKSI</span>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="../transaksi/index.php" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-history"></i>
+                      </span>
+                      <span class="hide-menu">Riwayat Transaksi</span>
+                    </a>
+                  </li>
+                <?php } ?>
               </ul>
               <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
                 <div class="d-flex">

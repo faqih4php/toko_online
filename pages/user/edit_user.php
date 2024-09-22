@@ -3,6 +3,7 @@
 
 <?php 
   include '../../action/user_action/show_detail_user.php';
+  include '../../action/security_act.php';
 ?>
 
 <head>

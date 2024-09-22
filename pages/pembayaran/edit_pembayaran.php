@@ -3,6 +3,7 @@
 
 <?php 
   include '../../action/pembayaran_action/show_detail_pembayaran.php';
+  include '../../action/security_act.php';
 ?>
 
 <head>

@@ -3,6 +3,8 @@
 
 <?php 
   include '../../action/kategori_action/show_detail_kategori.php';
+
+  include '../../action/security_act.php';
 ?>
 
 <head>

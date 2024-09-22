@@ -1,8 +1,8 @@
+<?php 
+    include '../../action/security.php';
+?>
 <!doctype html>
 <html lang="en">
-<?php 
-include '../../action/security_act.php';
-?>
 
 <head>
     <meta charset="utf-8">
@@ -30,10 +30,7 @@ include '../../action/security_act.php';
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="add_kategori.php" class="btn btn-success float-md-end">
-                                    Add Transaction <i class="ti ti-plus"></i>
-                                </a>
-                                <h5 class="card-title d-flex justify-content-start">Table Transaction</h5>
+                                <h5 class="card-title d-flex justify-content-start">Tabel Riwayat Transaksi</h5>
 
                                 <?php
                                 if (isset($_SESSION['msg'])) {
@@ -60,7 +57,6 @@ include '../../action/security_act.php';
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Pembeli</th>
                                                 <th>Produk</th>
                                                 <th>Tanggal Transaksi</th>
                                                 <th>Total</th>
@@ -70,34 +66,37 @@ include '../../action/security_act.php';
                                         </thead>
                                         <tbody>
                                             <?php
-                                            include '../../action/transaksi_action/show_data.php';
+                                            include '../../action/transaksi/show_data.php';
+
                                             $no = 1;
+
                                             while ($data = $result->fetch_assoc()) {
                                             ?>
                                                 <tr>
                                                     <td><?= $no++ ?></td>
                                                     <td><?= $data['pembeli'] ?></td>
                                                     <td><?= $data['produk'] ?></td>
-                                                    <td><?= $data['tgl'] ?></td>
-                                                    <td><?= $data['total'] ?></td>
+                                                    <td><?= $data['tgl_transaksi'] ?></td>
+                                                    <td><?= $data['total_harga'] ?></td>
                                                     <td>
-                                                        <a href="" data-bs-toggle="modal" data-bs-target="#editStatus" data-id="<?= $data['id'] ?>" data-status="<?= $data['status'] ?>">
+                                                        <a href="" data-toggle="modal" data-target="#editStatus" data-id="<?=$data['id']?>" data-status="<?= $data['status']?>" >
                                                             <?php if ($data['status'] == 1) { ?>
-                                                                <span class="badge bg-warning rounded-3 fw-semibold">Pending</span>  
-                                                            <?php } elseif ($data['status'] == 2) { ?>
+                                                                <span class="badge bg-warning rounded-3 fw-semibold">Pending</span>
+                                                            <?php
+                                                            } elseif ($data['status'] == 2) { ?>
                                                                 <span class="badge bg-success rounded-3 fw-semibold">Success</span>
                                                             <?php } else { ?>
                                                                 <span class="badge bg-danger rounded-3 fw-semibold">Failed</span>
                                                             <?php } ?>
                                                         </a>
+
                                                     </td>
                                                     <td>
-                                                        <a href="" class="badge bg-primary text-white text-decoration-none " data-toggle="modal" data-target="#detailTransaksi" data-id="<?= $data['id']?>"> <i class="ti ti-eye" id="detail" ></i></a>
+                                                    <a href="" class="badge bg-primary text-white text-decoration-none " data-toggle="modal" data-target="#detailTransaksi" data-id="<?= $data['id']?>"> <i class="ti ti-eye" id="detail" ></i></a>
                                                     </td>
                                                 </tr>
-                                            <?php
-                                            }
-                                            ?>
+
+                                            <?php } ?>
 
                                         </tbody>
                                     </table>
@@ -110,31 +109,34 @@ include '../../action/security_act.php';
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="editStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Status</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="../../action/transaksi_action/update_status.php" method="post">
-                    <input type="hidden" id="id" name="id">
-                    <label for="exampleInputtext1" class="form_label">Status</label>
-                    <select name="status" class="form-select" aria-label="Default select example" id="status">
-                        <option selected>Pilih Status</option>
-                        <option value="1">Pending</option>
-                        <option value="2">Success</option>
-                        <option value="3">Failed</option>
-                    </select>
 
-            </div>
-            <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <!-- Modal Edit Status-->
+    <div class="modal fade" id="editStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Status</h5>
+                    <!-- button close -->
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="../../action/transaksi_action/update_status.php" method="post">
+                        <input type="hidden" name="id" id="id">
+                        <div class="mb-4">
+                            <label for="exampleInputtext1" class="form-label">Status</label>
+                            <select class="form-select" aria-label="Default select example" name="status" id="status">
+                                <option selected>Pilih Status</option>
+                                <option value="1">Pending</option>
+                                <option value="2">Success</option>
+                                <option value="3">Failed</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
-                </form>
-            </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -151,14 +153,14 @@ include '../../action/security_act.php';
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <p>Nama Pembeli</p>
-                            <p>Produk</p>
-                            <p>Metode Pembayaran</p>
-                            <p>Qty</p>
-                            <p>Tanggal Transaksi</p>
-                            <p>Alamat</p>
-                            <p>Total Harga</p>
-                            <p>Status</p>
+                            <p class="fw-bold">Nama Pembeli</p>
+                            <p class="fw-bold">Produk</p>
+                            <p class="fw-bold">Metode Pembayaran</p>
+                            <p class="fw-bold">Qty</p>
+                            <p class="fw-bold">Tanggal Transaksi</p>
+                            <p class="fw-bold">Alamat</p>
+                            <p class="fw-bold">Total Harga</p>
+                            <p class="fw-bold">Status</p>
                         </div>
                         <div class="col-md-3">
                             <p id="nama_pembeli"></p>
@@ -169,11 +171,9 @@ include '../../action/security_act.php';
                             <p id="alamat"></p>
                             <p id="total_harga"></p>
                             <span id="status_pembayaran"></span>
-
-                            <!-- img -->
                         </div>
                         <div class="col-md-5">
-                            <img src="" id="foto_produk" width="150px" height="150px" alt="">
+                            <img src="" id="foto_produk" width="150px" height="150px">
                         </div>
                     </div>
                 </div>
@@ -182,8 +182,8 @@ include '../../action/security_act.php';
     </div>
 
     <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="../../assets/js/sidebarmenu.js"></script>
     <script src="../../assets/js/app.min.js"></script>
     <script src="../../assets/libs/simplebar/dist/simplebar.js"></script>
@@ -193,7 +193,6 @@ include '../../action/security_act.php';
             var a = $(event.relatedTarget);
             var id = a.data('id');
             var status = a.data('status');
-            console.log(id);
 
             var modal = $(this);
             modal.find('.modal-body #id').val(id);
@@ -218,29 +217,29 @@ include '../../action/security_act.php';
                     $('#produk').html(obj.produk);
                     $('#metode_pembayaran').html(obj.pembayaran);
                     $('#qty').html(obj.qty);
-                    $('#tgl_transaksi').html(obj.tanggal_transaksi);
+                    $('#tgl_transaksi').html(obj.tgl_transaksi);
                     $('#alamat').html(obj.alamat);
                     $('#total_harga').html(obj.total_harga);
-                    
+
                     // status
-                    if(obj.status == 1 ){
-                        $('#status_pembayaran').attr('class', 'badge bg-warning rounded-3 fw-semibold').html('Pending');
+                    if(obj.status == 1){
+                        $('#status_pembayaran').attr('class','badge bg-warning rounded-3 fw-semibold').html('Pending');
                     }
-                    if(obj.status == 2 ){
-                        $('#status_pembayaran').attr('class', 'badge bg-success rounded-3 fw-semibold').html('Success');
+                    if(obj.status == 2){
+                        $('#status_pembayaran').attr('class','badge bg-success rounded-3 fw-semibold').html('Success');
                     }else{
-                        $('#status_pembayaran').attr('class', 'badge bg-danger rounded-3 fw-semibold').html('Failed');
+                        $('#status_pembayaran').attr('class','badge bg-danger rounded-3 fw-semibold').html('Failed');
                     }
 
-                    // img
-                    $('#foto_produk').attr('src', '../../assets/images/product/' + obj.foto_produk);
+                    // image
+                    $('#foto_produk').attr('src', '../../assets/images/produk/' + obj.foto_produk);
                 },
                 error: function(error) {
                     console.log(error);
                 }
             });
         });
-    </script>
-</body>
 
-</html>
+    </script>
+
+</body>

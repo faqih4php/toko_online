@@ -1,6 +1,7 @@
 <?php 
 
 include '../connection/connection.php';
+session_start();
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -10,10 +11,23 @@ $sql = "SELECT * FROM user WHERE username = '$username' and password = '$passwor
 $result = $conn->query($sql);
 
 if($result->num_rows > 0){
-    echo "<script>Alert('Login Succes');</script>";
-    echo "<script>location.href = '../pages/layout/layout.php';</script>";
+    $data = $result->fetch_assoc();
+    if ($data['role'] == 1) {
+        $_SESSION['id'] = $data['id'];
+        $_SESSION['is_login'] = true;
+        $_SESSION['nama'] = $data['nama'];
+        $_SESSION['role'] = $data['role'];
+        echo "<script>alert('Login Success, Anda Sebagai Admin');</script>";
+        echo header('location:../pages/layout/layout.php');
+    }elseif ($data['role'] == 2) {
+        $_SESSION['id'] = $data['id'];
+        $_SESSION['is_login'] = true;
+        $_SESSION['nama'] = $data['nama'];
+        $_SESSION['role'] = $data['role'];
+        echo "<script>alert('Login Success, Anda Sebagai User');</script>";
+        echo header('location:../pages/home/index.php');
+    }
 }else{
-    session_start();
 
     $_SESSION['massage'] = "Username or Password is wrong";
     return header('location: ../pages/login_view.php');

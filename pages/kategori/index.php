@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
-<?php session_start(); ?>
+<?php 
+ 
+include '../../action/security_act.php';
+?>
 
 <head>
     <meta charset="utf-8">

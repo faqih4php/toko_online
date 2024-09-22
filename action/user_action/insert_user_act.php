@@ -12,11 +12,11 @@
     if($conn->query($sql) == true){
         session_start();
         $_SESSION['msg'] = 'Add User Succes';
-        header('Location:../../pages/user/edit_user.php');
+        header('Location:../../pages/user/index.php');
     }else {
         session_start();
         $_SESSION['msg'] = 'Add User Failed';
-        header('Location:../../pages/user/add_user.php');
+        header('Location:../../pages/user/index.php');
     }
 
 ?>

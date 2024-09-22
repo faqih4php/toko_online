@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
 <?php 
-    
+    include '<div class="">
+    <div class="">action/security_act.php';
 ?>
 <head>
     <meta charset="utf-8">

@@ -3,6 +3,7 @@
 
 <?php 
   include '../../action/product_action/show_detail_product.php';
+  include '../../action/security_act.php';
 ?>
 
 <head>

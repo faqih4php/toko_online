@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <?php 
-    
+    include '../../action/security_act.php';
 ?>
 <head>
     <meta charset="utf-8">
@@ -55,7 +55,7 @@
                                         <select class="form-select" aria-label="Default select example" name="role">
                                             <option selected>Pilih Role Anda</option>
                                             <option value="1">Admin</option>
-                                            <option value="1">User</option>
+                                            <option value="2">User</option>
                                         </select>
                                     </div>
                                     <input type="submit" class="btn btn-success py-8 fs-4 mb-4 rounded-2" value="Simpan">
