@@ -26,6 +26,9 @@
             <!--  Header End -->
             <!-- Content -->
             <div class="container-fluid">
+              <?php
+              include '../../action/dashboard_act/show_act.php';
+              ?>
                 <div class="row">
                     <div class="col-md-12">
                     <div class="card">
@@ -33,7 +36,7 @@
                     <div class="row alig n-items-start">
                       <div class="col-8">
                         <h5 class="card-title mb-9 fw-semibold"> Pengeluaran Bulan Ini </h5>
-                        <h4 class="fw-semibold mb-3">Rp. 50.000</h4>
+                        <h4 class="fw-semibold mb-3">Rp  <?= $data['pengeluaran_bulan_ini'] == true ? number_format($data['pengeluaran_bulan_ini'], 0, '.', '.') : 0 ?></h4>
                         <div class="d-flex align-items-center pb-1">
                           <span
                             class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">

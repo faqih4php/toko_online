@@ -1,5 +1,5 @@
 <?php 
-    include '../../action/security.php';
+    include '../../action/security_act.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,6 +25,9 @@
             <?php include '../layout/header.php'; ?>
             <!--  Header End -->
             <!-- Content -->
+             <?php 
+             
+             ?>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -66,7 +69,13 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            include '../../action/transaksi/show_data.php';
+                                            // include '../../action/transaksi/show_data.php';
+                                            include '../../connection/connection.php';
+                                            $id = $_SESSION['id'];
+                                            $sql = "SELECT transaksi.id, produk.nama, transaksi.tanggal_transaksi AS tgl, transaksi.total_harga, transaksi.status FROM transaksi JOIN produk on transaksi.produk_id = produk.id
+                                            WHERE transaksi.user_id = $id";
+                                            
+                                            $result = $conn->query($sql);
 
                                             $no = 1;
 
@@ -74,21 +83,18 @@
                                             ?>
                                                 <tr>
                                                     <td><?= $no++ ?></td>
-                                                    <td><?= $data['pembeli'] ?></td>
-                                                    <td><?= $data['produk'] ?></td>
-                                                    <td><?= $data['tgl_transaksi'] ?></td>
+                                                    <td><?= $data['nama'] ?></td>
+                                                    <td><?= $data['tgl'] ?></td>
                                                     <td><?= $data['total_harga'] ?></td>
                                                     <td>
-                                                        <a href="" data-toggle="modal" data-target="#editStatus" data-id="<?=$data['id']?>" data-status="<?= $data['status']?>" >
-                                                            <?php if ($data['status'] == 1) { ?>
-                                                                <span class="badge bg-warning rounded-3 fw-semibold">Pending</span>
-                                                            <?php
-                                                            } elseif ($data['status'] == 2) { ?>
-                                                                <span class="badge bg-success rounded-3 fw-semibold">Success</span>
-                                                            <?php } else { ?>
-                                                                <span class="badge bg-danger rounded-3 fw-semibold">Failed</span>
-                                                            <?php } ?>
-                                                        </a>
+                                                        <?php if ($data['status'] == 1) { ?>
+                                                            <span class="badge bg-warning rounded-3 fw-semibold">Pending</span>
+                                                        <?php
+                                                        } elseif ($data['status'] == 2) { ?>
+                                                            <span class="badge bg-success rounded-3 fw-semibold">Success</span>
+                                                        <?php } else { ?>
+                                                            <span class="badge bg-danger rounded-3 fw-semibold">Failed</span>
+                                                        <?php } ?>
 
                                                     </td>
                                                     <td>
@@ -153,7 +159,6 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <p class="fw-bold">Nama Pembeli</p>
                             <p class="fw-bold">Produk</p>
                             <p class="fw-bold">Metode Pembayaran</p>
                             <p class="fw-bold">Qty</p>
@@ -163,7 +168,6 @@
                             <p class="fw-bold">Status</p>
                         </div>
                         <div class="col-md-3">
-                            <p id="nama_pembeli"></p>
                             <p id="produk"></p>
                             <p id="metode_pembayaran"></p>
                             <p id="qty"></p>
@@ -213,11 +217,10 @@
                 success: function(data) {
                     var obj = JSON.parse(data);
                     console.log(obj);
-                    $('#nama_pembeli').html(obj.pembeli);
                     $('#produk').html(obj.produk);
                     $('#metode_pembayaran').html(obj.pembayaran);
                     $('#qty').html(obj.qty);
-                    $('#tgl_transaksi').html(obj.tgl_transaksi);
+                    $('#tgl_transaksi').html(obj.tanggal_transaksi);
                     $('#alamat').html(obj.alamat);
                     $('#total_harga').html(obj.total_harga);
 
@@ -232,7 +235,7 @@
                     }
 
                     // image
-                    $('#foto_produk').attr('src', '../../assets/images/produk/' + obj.foto_produk);
+                    $('#foto_produk').attr('src', '../../assets/images/product/' + obj.foto_produk);
                 },
                 error: function(error) {
                     console.log(error);
@@ -243,3 +246,4 @@
     </script>
 
 </body>
+</html>

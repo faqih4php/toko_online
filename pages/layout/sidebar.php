@@ -110,7 +110,7 @@
                     <span class="hide-menu">TRANSAKSI</span>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="../transaksi/index.php" aria-expanded="false">
+                    <a class="sidebar-link" href="../home/riwayat_transaksi.php" aria-expanded="false">
                       <span>
                         <i class="ti ti-history"></i>
                       </span>
