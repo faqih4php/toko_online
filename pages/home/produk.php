@@ -43,6 +43,10 @@ include '../../action/security_act.php';
                     </div>
                     <?php 
                     include '../../action/product_action/show_data_product.php';
+                    if($result->num_rows == 0){
+                        echo "<h1 class='align-item-center'>Produk tidak ditemukan</h1>";
+                    }
+
                     while($produk = $result->fetch_assoc()){
 
                     ?>
@@ -55,15 +59,19 @@ include '../../action/security_act.php';
                             <div class="card-body pt-3 p-4">
                                 <h6 class="fw-semibold fs-4"><?= $produk['nama'] ?></a></h6>
                                 <h6 class="fw-semibold fs-4 mb-4"><?= number_format($produk['harga'], 0, '.', '.') ?> <span class="ms-2 fw-normal text-muted fs-3"></span></h6>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h6 class="fw-semibold fs-4 mb-0"> Stock : <?= $produk['stok_produk'] ?></h6>
-                                    <ul class="list-unstyled d-flex align-items-center mb-0">
-                                        <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                        <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                        <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                        <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                        <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                    </ul>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h6 class="fw-semibold fs-4 mb-0"> Stock : <?= $produk['stok_produk'] == 0 ? 'Habis' : $produk['stok_produk'] ?></h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled d-flex align-items-center mb-0">
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

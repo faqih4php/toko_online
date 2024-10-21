@@ -60,7 +60,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Produk</th>
+                                                <th>Pembeli</th>
                                                 <th>Tanggal Transaksi</th>
                                                 <th>Total</th>
                                                 <th>Status</th>
@@ -70,14 +70,7 @@
                                         <tbody>
                                             <?php
                                             // include '../../action/transaksi/show_data.php';
-                                            include '../../connection/connection.php';
-                                            $id = $_SESSION['id'];
-                                            $sql = "SELECT transaksi.id, produk.nama, transaksi.tanggal_transaksi AS tgl, transaksi.total_harga, transaksi.status FROM transaksi JOIN produk on transaksi.produk_id = produk.id
-                                            WHERE transaksi.user_id = $id";
-                                            
-                                            $result = $conn->query($sql);
-
-                                            $no = 1;
+                                            include '../../action/dashboard_act/show_riwayat.php';
 
                                             while ($data = $result->fetch_assoc()) {
                                             ?>
@@ -116,36 +109,6 @@
     </div>
 
 
-    <!-- Modal Edit Status-->
-    <div class="modal fade" id="editStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Status</h5>
-                    <!-- button close -->
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="../../action/transaksi_action/update_status.php" method="post">
-                        <input type="hidden" name="id" id="id">
-                        <div class="mb-4">
-                            <label for="exampleInputtext1" class="form-label">Status</label>
-                            <select class="form-select" aria-label="Default select example" name="status" id="status">
-                                <option selected>Pilih Status</option>
-                                <option value="1">Pending</option>
-                                <option value="2">Success</option>
-                                <option value="3">Failed</option>
-                            </select>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal Detail Transaksi -->
     <div class="modal fade" id="detailTransaksi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -159,32 +122,46 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
+                            <p class="fw-bold">Nama Pembeli</p>
                             <p class="fw-bold">Produk</p>
                             <p class="fw-bold">Metode Pembayaran</p>
-                            <p class="fw-bold">Qty</p>
                             <p class="fw-bold">Tanggal Transaksi</p>
                             <p class="fw-bold">Alamat</p>
                             <p class="fw-bold">Total Harga</p>
                             <p class="fw-bold">Status</p>
                         </div>
                         <div class="col-md-3">
+                            <p id="nama_pembeli"></p>
                             <p id="produk"></p>
                             <p id="metode_pembayaran"></p>
-                            <p id="qty"></p>
                             <p id="tgl_transaksi"></p>
                             <p id="alamat"></p>
                             <p id="total_harga"></p>
                             <span id="status_pembayaran"></span>
                         </div>
-                        <div class="col-md-5">
-                            <img src="" id="foto_produk" width="150px" height="150px">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered no-wrap" id="tableDetail">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Produk</th>
+                                            <th>Harga</th>
+                                            <th>Qty</th>
+                                            <th>Total Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -242,6 +219,41 @@
                 }
             });
         });
+
+        $.ajax({
+                type: 'post',
+                url: '../../action/transaksi_action/show_item_transaksi.php',
+                data: {
+                    id: id
+
+                },
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+
+                    var table = document.getElementById('tableDetail');
+                    var tableBody = table.getElementsByTagName('tbody')[0];
+                    if (obj.length == 0) {
+                        // write no data in center of table
+                        tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No Data</td></tr>';
+                    } else if (obj.length > 0) {
+                        tableBody.innerHTML = ''; 
+                        obj.forEach(item => {
+                            var newRow = tableBody.insertRow(tableBody.rows.length);
+                            newRow.insertCell(0).innerHTML = obj.indexOf(item) + 1;
+                            newRow.insertCell(1).innerHTML = item.produk;
+                            newRow.insertCell(2).innerHTML = item.harga;
+                            newRow.insertCell(3).innerHTML = item.jml_beli;
+                            newRow.insertCell(4).innerHTML = item.total_harga;
+
+                        });
+                    }
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
 
     </script>
 

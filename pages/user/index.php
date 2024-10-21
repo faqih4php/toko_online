@@ -106,6 +106,32 @@ include '../../action/security_act.php';
     <script src="../../assets/js/sidebarmenu.js"></script>
     <script src="../../assets/js/app.min.js"></script>
     <script src="../../assets/libs/simplebar/dist/simplebar.js"></script>
+
+    <script>
+        function confirmDelete(event, id) {
+            event.preventDefault(); // Prevent the default action of the <a> tag
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    setTimeout(() => {
+                        window.location.href = '../../action/user_action/delete_user_act.php?id=' + id;
+                    }, 2000); 
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

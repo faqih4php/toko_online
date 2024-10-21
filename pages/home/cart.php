@@ -47,10 +47,7 @@ include '../../action/security_act.php';
                                         <tbody>
                                             <?php 
 
-                                            include '../../connection/connection.php';
-                                            
-                                            $sql = "select produk.id, produk.nama as produk, keranjang.jumlah_beli, keranjang.total_harga, produk.foto_produk, produk.harga from keranjang join produk on keranjang.produk_id = produk.id";
-                                            $result = $conn->query($sql);
+                                            include '../../action/dashboard_act/show_list.php';
                                             
                                             $no = 1;
                                             while($data=mysqli_fetch_assoc($result)){
@@ -67,7 +64,7 @@ include '../../action/security_act.php';
                                                 </td>
                                                 <td>Rp <?= number_format($data['total_harga'], 0, ',', '.')?></td>
                                                 <td>
-                                                    <button class="btn btn-primary"><i class="ti ti-trash"></i></button>
+                                                    <button class="btn btn-primary"><a href="../../action/dashboard_act/delete.php?id=<?= $data['keranjang_id'] ?>" class="text-white"><i class="ti ti-trash"></i></a></button>
                                                 </td>
                                             </tr>
                                             <?php }?>
@@ -83,22 +80,33 @@ include '../../action/security_act.php';
                                 <h4 class="font-weight-semi-bold m-0">Order Total</h4>
                             </div>
                             <div class="card-body">
-                                <div class="d-flex justify-content-between mb-3 pt-1">
-                                    <h6 class="font-weight-medium">Subtotal</h6>
-                                    <h6 class="font-weight-medium">$150</h6>
+                                <?php 
+                                    include '../../action/dashboard_act/show_list.php';
+
+                                    $totalHarga = $conn->query("select sum(total_harga) as tot from keranjang");
+                                    $tot = mysqli_fetch_assoc($totalHarga);
+                                    while($cart=mysqli_fetch_assoc($result)){
+                                ?>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="font-weight-medium"><?= $cart['produk']?></h6>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h6 class="font-weight-medium">x<?= $cart['jumlah_beli']?></h6>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="font-weight-medium"> <?= number_format($cart['total_harga'], 0, ',', '.')?></h6>
+                                    </div>
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-medium">Shipping</h6>
-                                    <h6 class="font-weight-medium">$10</h6>
-                                </div>
+                                <?php }?>
                             </div>
                             <div class="card-footer border-secondary bg-transparent">
                                 <div class="d-flex justify-content-between mt-2">
                                     <h5 class="font-weight-bold">Total</h5>
-                                    <h5 class="font-weight-bold">$160</h5>
+                                    <h5 class="font-weight-bold"><?= $tot['tot'] == true ? number_format($tot['tot'], 0, ',', '.') : 0?></h5>
                                 </div>
                                 <div class="d-flex ">
-                                    <button class="btn btn-primary">Checkout</button>
+                                    <a href="./checkout.php?" class="btn btn-primary">Checkout</a>
                                 </div>
                             </div>
                         </div>

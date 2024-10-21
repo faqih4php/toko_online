@@ -11,12 +11,16 @@
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               <!-- <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a> -->
+               <?php 
+               if ($_SESSION['role'] == 2) {
+               ?>
               <li class="nav-item">
                 <a href="../home/cart.php" class="nav-link nav-icon-hover" href="javascript:void(0)">
                   <i class="ti ti-shopping-cart"></i>
                   <div class="notification bg-primary rounded-circle"></div>
                 </a>
               </li>
+              <?php } ?>
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
                   <?= $_SESSION['nama'] ?>
@@ -29,18 +33,6 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body">
-                    <a href="../user/index.php" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">My Profile</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
-                    </a>
                     <a href="../../action/logout_act.php" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                   </div>
                 </div>

@@ -61,7 +61,6 @@ include '../../action/security_act.php';
                                             <tr>
                                                 <th>No</th>
                                                 <th>Pembeli</th>
-                                                <th>Produk</th>
                                                 <th>Tanggal Transaksi</th>
                                                 <th>Total</th>
                                                 <th>Status</th>
@@ -77,7 +76,7 @@ include '../../action/security_act.php';
                                                 <tr>
                                                     <td><?= $no++ ?></td>
                                                     <td><?= $data['pembeli'] ?></td>
-                                                    <td><?= $data['produk'] ?></td>
+                                                    <td><?= $data['no_hp'] ?></td>
                                                     <td><?= $data['tgl'] ?></td>
                                                     <td><?= $data['total'] ?></td>
                                                     <td>
@@ -151,29 +150,40 @@ include '../../action/security_act.php';
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <p>Nama Pembeli</p>
-                            <p>Produk</p>
-                            <p>Metode Pembayaran</p>
-                            <p>Qty</p>
-                            <p>Tanggal Transaksi</p>
-                            <p>Alamat</p>
-                            <p>Total Harga</p>
-                            <p>Status</p>
+                            <p class="fw-bold">Nama Pembeli</p>
+                            <p class="fw-bold">Phone</p>
+                            <p class="fw-bold">Metode Pembayaran</p>
+                            <p class="fw-bold">Tanggal Transaksi</p>
+                            <p class="fw-bold">Alamat</p>
+                            <p class="fw-bold">Total Harga</p>
+                            <p class="fw-bold">Status</p>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-8">
                             <p id="nama_pembeli"></p>
-                            <p id="produk"></p>
+                            <p id="phone"></p>
                             <p id="metode_pembayaran"></p>
-                            <p id="qty"></p>
                             <p id="tgl_transaksi"></p>
                             <p id="alamat"></p>
                             <p id="total_harga"></p>
                             <span id="status_pembayaran"></span>
-
-                            <!-- img -->
                         </div>
-                        <div class="col-md-5">
-                            <img src="" id="foto_produk" width="150px" height="150px" alt="">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered no-wrap" id="tableDetail">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Produk</th>
+                                            <th>Harga</th>
+                                            <th>Qty</th>
+                                            <th>Total Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -193,7 +203,6 @@ include '../../action/security_act.php';
             var a = $(event.relatedTarget);
             var id = a.data('id');
             var status = a.data('status');
-            console.log(id);
 
             var modal = $(this);
             modal.find('.modal-body #id').val(id);
@@ -215,30 +224,63 @@ include '../../action/security_act.php';
                     var obj = JSON.parse(data);
                     console.log(obj);
                     $('#nama_pembeli').html(obj.pembeli);
-                    $('#produk').html(obj.produk);
+                    $('#phone').html(obj.no_hp);
                     $('#metode_pembayaran').html(obj.pembayaran);
-                    $('#qty').html(obj.qty);
-                    $('#tgl_transaksi').html(obj.tanggal_transaksi);
+                    $('#tgl_transaksi').html(obj.tgl_transaksi);
                     $('#alamat').html(obj.alamat);
                     $('#total_harga').html(obj.total_harga);
-                    
+
                     // status
-                    if(obj.status == 1 ){
+                    if (obj.status == 1) {
                         $('#status_pembayaran').attr('class', 'badge bg-warning rounded-3 fw-semibold').html('Pending');
-                    }
-                    if(obj.status == 2 ){
+                    } else if (obj.status == 2) {
                         $('#status_pembayaran').attr('class', 'badge bg-success rounded-3 fw-semibold').html('Success');
-                    }else{
+                    } else {
                         $('#status_pembayaran').attr('class', 'badge bg-danger rounded-3 fw-semibold').html('Failed');
                     }
 
-                    // img
-                    $('#foto_produk').attr('src', '../../assets/images/product/' + obj.foto_produk);
                 },
                 error: function(error) {
                     console.log(error);
                 }
             });
+
+            $.ajax({
+                type: 'post',
+                url: '../../action/transaksi_action/show_item_transaksi.php',
+                data: {
+                    id: id
+
+                },
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+
+                    var table = document.getElementById('tableDetail');
+                    var tableBody = table.getElementsByTagName('tbody')[0];
+                    if (obj.length == 0) {
+                        // write no data in center of table
+                        tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No Data</td></tr>';
+                    } else if (obj.length > 0) {
+                        tableBody.innerHTML = ''; 
+                        obj.forEach(item => {
+                            var newRow = tableBody.insertRow(tableBody.rows.length);
+                            newRow.insertCell(0).innerHTML = obj.indexOf(item) + 1;
+                            newRow.insertCell(1).innerHTML = item.produk;
+                            newRow.insertCell(2).innerHTML = item.harga;
+                            newRow.insertCell(3).innerHTML = item.jml_beli;
+                            newRow.insertCell(4).innerHTML = item.total_harga;
+
+                        });
+                    }
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+
         });
     </script>
 </body>
