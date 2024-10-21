@@ -10,6 +10,7 @@ include '../../action/security_act.php';
     <title>Home</title>
     <link rel="shortcut icon" type="image/png" href="../../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="../../assets/css/styles.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -65,11 +66,11 @@ include '../../action/security_act.php';
                                     </div>
                                     <div class="col-md-6">
                                         <ul class="list-unstyled d-flex align-items-center mb-0">
-                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                            <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="fa fa-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="fa fa-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="fa fa-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="fa fa-star text-warning"></i></a></li>
+                                            <li><a class="" href="javascript:void(0)"><i class="fa fa-star text-warning"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
